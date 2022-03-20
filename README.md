@@ -19,6 +19,22 @@
 ### 전자는 외부 모듈(External Module)을 정의하는 방법이며 후자는 내부 모듈(Internal Module)을 정의하는 방법이다. 후자는 namespace가 생기고나서부터declare namespace buffer {}로 교체되었다. 모듈명이 문자열로 감싸져있다면 외부 모듈(ES6)에 대해 정의하는 것이고 문자열로 감싸져있지않다면 내부모듈을 정의하는 것이다.
 
 ### provided.placeholder (?ReactElement)
-### Draggable 엘리먼트를 드래그하는 동안 position: fixed(영역을 고정시킴)를 적용합니다.
-### Draggable을 드래그할 때 Droppable 리스트가 작아지는 것을 방지하기 위해 필요합니다.
-### Draggable 노드의 형제로 렌더링하는 것이 좋습니다.
+### Draggable 엘리먼트를 드래그하는 동안 position: fixed(영역을 고정시킴)를 적용한다.
+### Draggable을 드래그할 때 Droppable 리스트가 작아지는 것을 방지하기 위해 필요하다.
+### Draggable 노드의 형제로 렌더링하는 것이 좋다.
+
+### onDragEnd
+### result: DropResult
+### result.draggableId: 드래그 되었던 Draggable의 id.
+### result.type: 드래그 되었던 Draggable의 type.
+### result.source: Draggable 이 시작된 위치(location).
+### result.destination: Draggable이 끝난 위치(location). 만약에 Draggable이 시작한 위치와 같은 위치로 돌아오면 이 destination값은 null이 될것이다..
+
+### < Draggable /> list의 키
+### < Draggable /> list를 렌더링하는 경우 각 < Draggable />에 key prop을 추가하는 것이 중요하다.
+
+### 규칙
+### key는 list 내에서 고유해야 하다.
+### key에 item의 index가 포함되어서는 안된다. (map의 index사용 X)
+### 일반적으로 draggableId를 key로 사용하면 된다.
+### 주의! list에 key가 없으면 React가 경고하지만 index를 key로 사용하는 경우 경고하지 않는다. key를 올바르게 사용하지 않으면 정말 안 좋은 일이 생길 수 있다. 💥

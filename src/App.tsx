@@ -1,5 +1,7 @@
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable, DropResult } from "react-beautiful-dnd";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { toDoState } from "./atoms.tsx";
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,10 +34,27 @@ const Card = styled.div`
   background-color: ${props => props.theme.cardColor};
 `;
 
-const toDos = ["a","b","c","d","e","f"]
 
 function App() {
-  const onDragEnd = () => {};
+  const [toDos, setToDos] = useRecoilState(toDoState);
+  const onDragEnd = ({ draggableId, destination, source}:DropResult) => {
+    console.log(draggableId);
+    console.log(destination);
+    console.log(source);
+    if(!destination) return;
+    setToDos((oldToDos) => {
+      const copyToDos = [...oldToDos];
+      // 1) 아이템 삭제 source.index
+      console.log("아이템 삭제 시작", source.index);
+      console.log(copyToDos);
+      copyToDos.splice(source.index, 1);
+      console.log("아이템 삭제 완료");
+      // 2) destination.index로 item 다시 돌려두기
+      console.log("아이템 복귀", draggableId, "on", destination.index);
+      copyToDos.splice(destination?.index, 0, draggableId);
+      return copyToDos;
+    });
+  };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
@@ -44,7 +63,7 @@ function App() {
             {(magic)=>(
               <Board ref={magic.innerRef} {...magic.droppableProps}>
                 {toDos.map((todo, index) =>
-                  <Draggable draggableId={todo} index={index}>
+                  <Draggable key={todo} draggableId={todo} index={index}>
                     {(magic)=> 
                       <Card 
                         // li에 magic 요소 풀기

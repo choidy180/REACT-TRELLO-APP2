@@ -38,3 +38,16 @@
 ### key에 item의 index가 포함되어서는 안된다. (map의 index사용 X)
 ### 일반적으로 draggableId를 key로 사용하면 된다.
 ### 주의! list에 key가 없으면 React가 경고하지만 index를 key로 사용하는 경우 경고하지 않는다. key를 올바르게 사용하지 않으면 정말 안 좋은 일이 생길 수 있다. 💥
+
+
+### React Memo
+### React.memo는 고차 컴포넌트(Higher Order Component)입니다.
+### 컴포넌트가 동일한 props로 동일한 결과를 렌더링해낸다면, React.memo를 
+### 호출하고 결과를 메모이징(Memoizing)하도록 래핑하여 경우에 따라 성능 향상을 누릴 수 있습니다. 즉, React는 컴포넌트를 렌더링하지 않고 마지막으로 렌더링된 결과를 재사용합니다.
+
+### React.memo는 props 변화에만 영향을 줍니다. React.memo로 감싸진 함수 컴포넌트 구현에 useState, useReducer 또는 useContext 훅을 사용한다면, 여전히 state나 context가 변할 때 다시 렌더링됩니다.
+### 이 메서드는 오직 성능 최적화를 위하여 사용됩니다. 렌더링을 “방지”하기 위하여 사용하지 마세요. 버그를 만들 수 있습니다.
+
+### Object.keys(obj)
+
+### Object.keys() 메소드는 주어진 객체의 속성 이름들을 일반적인 반복문과 동일한 순서로 순회되는 열거할 수 있는 배열로 반환합니다.
